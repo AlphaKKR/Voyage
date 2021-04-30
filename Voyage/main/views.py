@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from Accounts.models import UserAccount
 from django.contrib.auth import login, logout, authenticate
 from django.http import HttpResponse
+from .models import Room
 
 def Login(request):
     if request.method == 'POST':
@@ -16,3 +17,8 @@ def Login(request):
         else:
             return HttpResponse('User does not exist')
     return render(request, 'main/login.html')
+
+def Room_List(request):
+    instance = Room.objects.all()
+    param = {'objects': instance}
+    return render(request, 'main/room_list.html', param)
