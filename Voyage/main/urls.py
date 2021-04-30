@@ -5,4 +5,5 @@ urlpatterns = [
     # path('', views.index, name='index'),
     path('login', views.Login, name='login'),
     # path('logout/', views.Logout, name='logout'),
+    path('rooms', views.Room_List, name='Rooms')
 ]
