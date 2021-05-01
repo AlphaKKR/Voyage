@@ -74,6 +74,8 @@ def Room_List(request):
 
 @login_required(login_url='/login')
 
+
+
 def Book(request):
     if request.method == 'GET':
         id = request.GET.get('id')
@@ -127,19 +129,19 @@ def Advertise(request):
             instance = Room(
                 price=request.POST['price'], 
                 details=request.POST['details'],
-                room_desc=request.POST['desc'], 
+                room_desc=request.POST['room_desc'], 
                 address=request.POST['address'], 
-                cover_image=request.FILES['cover'],
-                image_1=request.FILES['img1'],
-                image_2=request.FILES['img2'],
-                image_3=request.FILES['img3'],
-                image_4=request.FILES['img4'],
-                image_5=request.FILES['img5'],
-                image_6=request.FILES['img6'],
-                image_7=request.FILES['img7'],
-                image_8=request.FILES['img8'],
-                image_9=request.FILES['img9'],
-                image_10=request.FILES['img10']
+                cover_image=request.FILES['cover_image'],
+                image_1=request.FILES['image_1'],
+                image_2=request.FILES['image_2'],
+                image_3=request.FILES['image_3'],
+                image_4=request.FILES['image_4'],
+                image_5=request.FILES['image_5'],
+                image_6=request.FILES['image_6'],
+                image_7=request.FILES['image_7'],
+                image_8=request.FILES['image_8'],
+                image_9=request.FILES['image_9'],
+                image_10=request.FILES['image_10']
                 )
 
             instance.save()
