@@ -72,7 +72,12 @@ def Room_List(request):
         print(param)
         return render(request, 'main/room_list.html', param)
 
+def Advertise(request):
+    return render(request, 'main/advertise.html')
+
 @login_required(login_url='/login')
+
+
 
 def Book(request):
     if request.method == 'GET':
