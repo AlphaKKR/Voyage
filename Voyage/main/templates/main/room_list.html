@@ -40,6 +40,9 @@
                             <li class="nav-item"><a class="nav-link " aria-current="page" href="/">Home</a>
                             </li>
                             <li class="nav-item"><a class="nav-link active" href="rooms">Rooms List</a></li>
+                            {% if user.is_landlord %}
+                            <li class="nav-item"><a class="nav-link " href="/advertise" >Advertisement</a></li>
+                            {% endif %}
                             {% if user.is_authenticated %}
                             {% load i18n %}
                             <form method="post" action="{% url 'logout' %}">
@@ -60,7 +63,7 @@
         </div>
     </header>
     <!-- Rooms Listing Section -->
-    <section id="rooms">
+    <section id="rooms" class='footer'>
         <div class="container">
             <h2>Voyage Rooms Gallery</h2>
             <div class="divider"></div>

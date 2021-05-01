@@ -17,7 +17,7 @@ def Description(request):
     return render(request,'main/description.html',param)
 
 def Home(request):
-    instance = Room.objects.all()
+    instance = Room.objects.filter(verified = True)
     instance = instance[0:4]
     param = {'objects': instance}
     return render(request,'main/home.html',param)
@@ -65,9 +65,18 @@ def Room_List(request):
                 if id not in rooms:
                     rooms.append(id)
                     param['objects'].append(Room.objects.get(room_id=id))
+        for i in instance.iterator():
+            flag=0
+            for j in bookings.iterator():
+                if i.room_id ==j.room_id:
+                    flag=1
+            if flag == 0:
+                param['objects'].append(Room.objects.get(room_id=i.room_id))
+
+
         return render(request, 'main/room_list.html', param)
     else:
-        instance = Room.objects.all()
+        instance = Room.objects.filter(verified = True)
         param = {'objects': instance}
         print(param)
         return render(request, 'main/room_list.html', param)
@@ -143,6 +152,7 @@ def Advertise(request):
                     pass
             instance.save()
             
-            return HttpResponse('Advertisement Submitted')
-            
+            return redirect('/')
+        else:
+            return HttpResponse("User is not a LandLord")    
     return render(request, 'main/advertise.html')
