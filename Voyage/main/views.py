@@ -28,8 +28,8 @@ def Register(request):
         user = UserAccount.objects.create_user(username=name, email = email, password = password, contact_no = contact)
         user = authenticate(email=email, password=password)
         if user is not None:
-            return redirect('/home')
-        return render(request, '/home',)
+            return redirect('/')
+        return render(request, '/',)
 
 def Login(request):
     if request.method == 'POST':
@@ -38,9 +38,9 @@ def Login(request):
         user = authenticate(email=email, password=password)
         if user is not None:
             login(request, user)
-            return redirect('/home')
+            return redirect('/')
         else:
-            return redirect('/home/login')
+            return redirect('/login')
     return render(request, 'main/login.html')
 
 def Room_List(request):
@@ -55,10 +55,13 @@ def Room_List(request):
         instance = Room.objects.all()
         bookings = Booking.objects.all()
         param = {'objects': []}
+        rooms = []
         for i in bookings.iterator():
             if i.start >= departure or i.end <= arrive:
                 id = i.room_id
-                param['objects'].append(Room.objects.get(room_id=id))
+                if id not in rooms:
+                    rooms.append(id)
+                    param['objects'].append(Room.objects.get(room_id=id))
         return render(request, 'main/room_list.html', param)
     else:
         instance = Room.objects.all()
@@ -66,7 +69,7 @@ def Room_List(request):
         print(param)
         return render(request, 'main/room_list.html', param)
 
-@login_required(login_url='/home/login')
+@login_required(login_url='/login')
 
 def Book(request):
     if request.method == 'GET':
@@ -99,8 +102,8 @@ def Payment(request):
         adults = request.GET.get('adults')
         print(40*"#", id,adults)
         Booking.objects.create(user = request.user , start = arrive, end = departure, room_id = id , adults = adults)
-    return redirect('/home')
+    return redirect('/')
 
 def Logout(request):
     logout(request)
-    return redirect('/home')
+    return redirect('/')
