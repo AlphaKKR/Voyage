@@ -53,11 +53,11 @@
             <div id="loginSignup">
                 <div class="row">
                     <div class="col-md-12 col-lg-12">
-                        <form action='register' method="POST">
+                        <form action='advertise' method="POST" enctype="multipart/form-data">
                             {% csrf_token %}
                             <h3>Register</h3>
                             <div class="mb-3">
-                                <input type="text" class="form-control" name="number" placeholder="Price">
+                                <input type="text" class="form-control" name="price" placeholder="Price">
                             </div>
                             <div class="mb-3">
                                 <input type="text" class="form-control" name="details" placeholder="Details">
@@ -66,55 +66,43 @@
                                 <input type="text" class="form-control" name="room_desc" placeholder="Room Description">
                             </div>
                             <div class="mb-3">
-                                <input type="text" class="form-control" name="address"
-                                    placeholder="Address">
+                                <input type="text" class="form-control" name="address" placeholder="Address">
                             </div>
                             <div class="mb-3">
                                 <h5 style='color:white'>Add images</h5>
                             </div>
                             <div class="mb-3">
-                                <input type="file" class="form-control" name="cover_image"
-                                    placeholder="Address">
+                                <input type="file" class="form-control" name="cover_image" placeholder="Address">
                             </div>
                             <div class="mb-3">
-                                <input type="file" class="form-control" name="image_1"
-                                    placeholder="image_1">
+                                <input type="file" class="form-control" name="image_1" placeholder="image_1">
                             </div>
                             <div class="mb-3">
-                                <input type="file" class="form-control" name="image_2"
-                                    placeholder="image_2">
+                                <input type="file" class="form-control" name="image_2" placeholder="image_2">
                             </div>
                             <div class="mb-3">
-                                <input type="file" class="form-control" name="image_3"
-                                    placeholder="image_3">
+                                <input type="file" class="form-control" name="image_3" placeholder="image_3">
                             </div>
                             <div class="mb-3">
-                                <input type="file" class="form-control" name="image_4"
-                                    placeholder="image_4">
+                                <input type="file" class="form-control" name="image_4" placeholder="image_4">
                             </div>
                             <div class="mb-3">
-                                <input type="file" class="form-control" name="image_5"
-                                    placeholder="image_5">
+                                <input type="file" class="form-control" name="image_5" placeholder="image_5">
                             </div>
                             <div class="mb-3">
-                                <input type="file" class="form-control" name="image_6"
-                                    placeholder="image_6">
+                                <input type="file" class="form-control" name="image_6" placeholder="image_6">
                             </div>
                             <div class="mb-3">
-                                <input type="file" class="form-control" name="image_7"
-                                    placeholder="image_7">
+                                <input type="file" class="form-control" name="image_7" placeholder="image_7">
                             </div>
                             <div class="mb-3">
-                                <input type="file" class="form-control" name="image_8"
-                                    placeholder="image_8">
+                                <input type="file" class="form-control" name="image_8" placeholder="image_8">
                             </div>
                             <div class="mb-3">
-                                <input type="file" class="form-control" name="image_9"
-                                    placeholder="image_9">
+                                <input type="file" class="form-control" name="image_9" placeholder="image_9">
                             </div>
                             <div class="mb-3">
-                                <input type="file" class="form-control" name="image_10"
-                                    placeholder="image_10">
+                                <input type="file" class="form-control" name="image_10" placeholder="image_10">
                             </div>
                             <div>
                                 <button type="submit" class="btn btn-details-lg">Upload</button>
