@@ -12,6 +12,7 @@ def get_image_path_img(instance, filename):
 
 class Room(models.Model):
     room_id         = models.AutoField(primary_key=True)
+    user            = models.ForeignKey(UserAccount, on_delete=models.CASCADE, null=True)
     price           = models.IntegerField(default=0, null=False)
     details         = models.CharField(max_length=100, default='', null=False)
     room_desc       = models.TextField(max_length=1000, default='', null=False)
@@ -29,6 +30,7 @@ class Room(models.Model):
     image_10        = models.ImageField(upload_to=get_image_path_img, blank=True, null=True)
 
     verified        = models.BooleanField(default=False)
+    rejected        = models.BooleanField(default=False)
 
     def __str__(self):
         return (str(self.room_id))

@@ -13,4 +13,6 @@ urlpatterns = [
     path('payment', views.Payment, name = 'payment'),
     path('advertise', views.Advertise, name = 'advertise'),
     path('comment', views.Comments, name ='comment'),
+    path('adminpage', views.Adminpage, name='landlord'),
+    path('verify', views.VerifyRoom, name ='verify'),
 ]

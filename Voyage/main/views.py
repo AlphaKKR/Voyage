@@ -79,10 +79,20 @@ def Room_List(request):
     else:
         instance = Room.objects.filter(verified = True)
         param = {'objects': instance}
-        print(param)
         return render(request, 'main/room_list.html', param)
 
 @login_required(login_url='/login')
+
+
+
+def Adminpage(request):
+    verified_rooms = Room.objects.filter(verified = False)
+    rooms = []
+    for i in verified_rooms:
+        if i.rejected == False:
+            rooms.append(i)
+    param = {'objects':rooms}
+    return render(request,'main/landlord.html',param)
 
 def Comments(request):
     if request.method == 'POST':
@@ -120,7 +130,6 @@ def Payment(request):
         arrive = request.GET.get('start')
         departure = request.GET.get('end')
         adults = request.GET.get('adults')
-        print(40*"#", id,adults)
         Booking.objects.create(user = request.user , start = arrive, end = departure, room_id = id , adults = adults)
 
         subject = 'Voyage Booking Confirmation'
@@ -140,25 +149,81 @@ def Logout(request):
 
 def Advertise(request):
     if request.method == 'POST':
-        if request.user.is_landlord:
-            instance = Room(
-                price=request.POST['price'], 
-                details=request.POST['details'],
-                room_desc=request.POST['room_desc'], 
-                address=request.POST['address'], 
-                cover_image=request.FILES['cover_image'],
-                image_1=request.FILES['image_1'],
-                )
+        if not request.POST['id']:
+            if request.user.is_landlord:
+                instance = Room(
+                    user = request.user,
+                    price=request.POST['price'], 
+                    details=request.POST['details'],
+                    room_desc=request.POST['room_desc'], 
+                    address=request.POST['address'], 
+                    cover_image=request.FILES['cover_image'],
+                    image_1=request.FILES['image_1'],
+                    )
 
-            for i in range(2, 11):
-                tmp = f'image_{i}'
+                for i in range(2, 11):
+                    tmp = f'image_{i}'
+                    try:
+                        instance.tmp = request.FILES[tmp]
+                    except:
+                        pass
+                instance.save()
+                
+                return redirect('/')
+            else:
+                return HttpResponse("User is not a LandLord") 
+        else:
+            if request.user.is_landlord:
+                id = request.POST.get('id')
                 try:
-                    instance.tmp = request.FILES[tmp]
+                    room = Room.objects.get(room_id = id)
+                    room.delete()
                 except:
                     pass
-            instance.save()
-            
-            return redirect('/')
-        else:
-            return HttpResponse("User is not a LandLord")    
+                instance = Room(
+                    user = request.user,
+                    price=request.POST['price'], 
+                    details=request.POST['details'],
+                    room_desc=request.POST['room_desc'], 
+                    address=request.POST['address'], 
+                    cover_image=request.FILES['cover_image'],
+                    image_1=request.FILES['image_1'],
+                    )
+
+                for i in range(2, 11):
+                    tmp = f'image_{i}'
+                    try:
+                        instance.tmp = request.FILES[tmp]
+                    except:
+                        pass
+                instance.save()
+                
+                return redirect('/')
+            else:
+                return HttpResponse("User is not a LandLord")
     return render(request, 'main/advertise.html')
+
+def VerifyRoom(request):
+    if request.method == 'POST':
+        id = request.POST.get('id')
+        reason = request.POST.get('reason')
+        room = Room.objects.get(room_id = id)
+        room.rejected = True
+        room.save()
+
+        user = UserAccount.objects.get(username = room.user)
+        subject = 'Advertisement Rejected'
+        message = f'{request.user.username} your advertisement has been requested because {reason}'
+
+        send_mail(subject, 
+                  message, 
+                  EMAIL_HOST_USER, 
+                  [user.email], 
+                  fail_silently = False)
+
+        return redirect('/landlord')
+    else:
+        room = Room.objects.get(room_id = int(request.GET.get('id')))
+        room.verified = True
+        room.save()
+        return redirect('/landlord')

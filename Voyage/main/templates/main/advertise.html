@@ -41,6 +41,9 @@
                             {% if user.is_landlord %}
                             <li class="nav-item"><a class="nav-link active" href="/advertise" >Advertisement</a></li>
                             {% endif %}
+                            {% if user.is_admin %}
+                            <li class="nav-item"><a class="nav-link " href="/adminpage" >Verification</a></li>
+                            {% endif %}
                             <li class="nav-item"><a class="nav-link" href="login">Login/Register</a></li>
                         </ul>
                     </div>
@@ -60,16 +63,19 @@
                             {% csrf_token %}
                             <h3>Register</h3>
                             <div class="mb-3">
-                                <input type="text" class="form-control" name="price" placeholder="Price">
+                                <input type="text" class="form-control" name="id" placeholder="Room Id (only give if you want to update)" >
                             </div>
                             <div class="mb-3">
-                                <input type="text" class="form-control" name="details" placeholder="Details">
+                                <input type="text" class="form-control" name="price" placeholder="Price" required>
                             </div>
                             <div class="mb-3">
-                                <input type="text" class="form-control" name="room_desc" placeholder="Room Description">
+                                <input type="text" class="form-control" name="details" placeholder="Details" required>
                             </div>
                             <div class="mb-3">
-                                <input type="text" class="form-control" name="address" placeholder="Address">
+                                <input type="text" class="form-control" name="room_desc" placeholder="Room Description" required>
+                            </div>
+                            <div class="mb-3">
+                                <input type="text" class="form-control" name="address" placeholder="Address" required>
                             </div>
                             <div class="mb-3">
                                 <h5 style='color:white'>Add images</h5>

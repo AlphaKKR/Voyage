@@ -39,12 +39,12 @@
                         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                             <li class="nav-item"><a class="nav-link " aria-current="page" href="/">Home</a>
                             </li>
-                            <li class="nav-item"><a class="nav-link active" href="rooms">Rooms List</a></li>
+                            <li class="nav-item"><a class="nav-link " href="rooms">Rooms List</a></li>
                             {% if user.is_landlord %}
                             <li class="nav-item"><a class="nav-link " href="/advertise" >Advertisement</a></li>
                             {% endif %}
                             {% if user.is_admin %}
-                            <li class="nav-item"><a class="nav-link " href="/adminpage" >Verification</a></li>
+                            <li class="nav-item"><a class="nav-link active" href="/adminpage" >Verification</a></li>
                             {% endif %}
                             {% if user.is_authenticated %}
                             {% load i18n %}
@@ -84,7 +84,13 @@
                             <p class="card-text mb-1">{{i.details}}</p>
                             <p class="mb-1">{{i.room_desc}}</p>
                             <p class="small">{{i.address}}</p>
-                            <a href="description?id={{i.room_id}}" class="btn btn-details">View Details</a>
+                            <a href="/verify?id={{i.room_id}}" class="btn btn-details">Verify</a>
+                            <form action="/verify" method = 'post' style='margin-top:10px'>
+                                {% csrf_token %}
+                                <input type="hidden" name = "id" value = '{{i.room_id}}'>
+                                 <textarea name="reason"></textarea>   <br>
+                                <input type='submit' href="/verify" class="btn btn-details" value ="Reject">
+                            </form> 
                         </div>
                     </div>
                 </div>
@@ -95,7 +101,7 @@
                 {% endfor %}
             </div>
             {% else %}
-            <h3 class ='text-center'>No rooms available</h3>
+            <h3 class ='text-center'>No more Rooms Left to verify</h3>
             {% endif %}
         </div>
         
