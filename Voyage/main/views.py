@@ -120,3 +120,30 @@ def Payment(request):
 def Logout(request):
     logout(request)
     return redirect('/')
+
+def Advertise(request):
+    if request.method == 'POST':
+        if request.user.is_landlord:
+            instance = Room(
+                price=request.POST['price'], 
+                details=request.POST['details'],
+                room_desc=request.POST['desc'], 
+                address=request.POST['address'], 
+                cover_image=request.FILES['cover'],
+                image_1=request.FILES['img1'],
+                image_2=request.FILES['img2'],
+                image_3=request.FILES['img3'],
+                image_4=request.FILES['img4'],
+                image_5=request.FILES['img5'],
+                image_6=request.FILES['img6'],
+                image_7=request.FILES['img7'],
+                image_8=request.FILES['img8'],
+                image_9=request.FILES['img9'],
+                image_10=request.FILES['img10']
+                )
+
+            instance.save()
+            
+            return HttpResponse('Advertisement Submitted')
+            
+    return render(request, 'main/advertise.html')

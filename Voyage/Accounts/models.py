@@ -48,6 +48,8 @@ class UserAccount(AbstractBaseUser):
 
     objects = UserAccountManager()
 
+    is_landlord     = models.BooleanField(default=False)
+
     def __str__(self):
         return self.username
     
