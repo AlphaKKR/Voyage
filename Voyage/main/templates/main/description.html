@@ -131,16 +131,16 @@
 				</div>
 				<form id="bookingForm" action='book' method='GET'>
 					<div class="box">
-						<input type="button" name="id" value="{{object.room_id}}"> 
+						<input type="hidden" name="id" value="{{object.room_id}}"> 
 						<h3>Book Now</h3>
 						<div class="mb-4">
-							<input type="date" name="arrive" class="form-control">
+							<input type="date" name="arrive" class="form-control" required="true">
 						</div>
 						<div class="mb-4">
-							<input type="date" name="departure" class="form-control">
+							<input type="date" name="departure" class="form-control" required="true">
 						</div>
 						<div class="mb-4">
-							<select name="adults" class="form-control">
+							<select name="adults" class="form-control" required="true">
                                 <option>Members</option>
                                 <option>1</option>
                                 <option>2</option>

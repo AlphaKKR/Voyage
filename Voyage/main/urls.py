@@ -10,4 +10,5 @@ urlpatterns = [
     path('',views.Home,name='home'),
     path('description', views.Description, name='description'),
     path('book', views.Book,name='book'),
+    path('payment', views.Payment, name = 'payment'),
 ]

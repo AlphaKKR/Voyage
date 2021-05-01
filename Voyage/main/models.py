@@ -1,4 +1,5 @@
 from django.db import models
+from Accounts.models import UserAccount
 import os
 
 def get_image_path_cover(instance, filename):
@@ -32,7 +33,9 @@ class Room(models.Model):
 
 
 class Booking(models.Model):
-    room_id         = models.ForeignKey(Room, on_delete=models.CASCADE, null=True)
+    user            = models.ForeignKey(UserAccount, on_delete=models.CASCADE, null=True)
+    room_id         = models.IntegerField( null=True)
+    adults          = models.IntegerField( null=True)
     start           = models.DateField()
     end             = models.DateField() 
 

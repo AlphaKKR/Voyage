@@ -37,9 +37,9 @@
                     </button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                            <li class="nav-item"><a class="nav-link active" aria-current="page" href="/home">Home</a>
+                            <li class="nav-item"><a class="nav-link " aria-current="page" href="/home">Home</a>
                             </li>
-                            <li class="nav-item"><a class="nav-link" href="rooms">Rooms List</a></li>
+                            <li class="nav-item"><a class="nav-link active" href="rooms">Rooms List</a></li>
                             {% if user.is_authenticated %}
                             {% load i18n %}
                             <form method="post" action="{% url 'logout' %}">
@@ -65,7 +65,7 @@
             <h2>Voyage Rooms Gallery</h2>
             <div class="divider"></div>
 
-
+            {% if objects %}
             <div class='row'>
                 {% for i in objects %}
                 <div class="col-md-4">
@@ -88,6 +88,9 @@
                 {% endif %}
                 {% endfor %}
             </div>
+            {% else %}
+            <h3 class ='text-center'>No rooms available</h3>
+            {% endif %}
         </div>
         
 

@@ -63,8 +63,9 @@
 <section id="cont-form" style="background-image: url({{object.image_1.url}});">
 	<div class="container">
 		<div id="loginSignup">
-			<form>
+			<form action='/home/payment' method ='get' >
 				<div class="pay-box">
+                    {% if object %}
 					<div class="row">
 						<div class="col-md-12 col-lg-6">
 							<img src={{object.cover_image.url}} alt="" class="img-fluid">
@@ -72,14 +73,21 @@
 						<div class="col-md-12 col-lg-6">
 							<div class="pay-detail">
 								<h2>Book Now</h2>
+                                <input type="hidden" name="start" value="{{start}}">
+                                <input type="hidden" name="end" value="{{end}}">  
+                                <input type="hidden" name="adults" value="{{adults}}">
+                                <input type="hidden" name="id" value="{{object.room_id}}">  
 								<h5 class="card-title">₹ {{object.price}}</h5>
 		    					<p class="card-text mb-1">{{object.details}}</p>
 		    					<p class="mb-1">{{object.room_desc}}</p>
 		    					<p class="small">{{object.address}}</p>
-		    					<a href="index.php" class="btn btn-details">Confirm and Pay</a>
+		    					<input type='submit' class="btn btn-details" value="Confirm and Pay">
 							</div>
 						</div>
 					</div>
+                    {% else %}
+                    <h4 class = 'text-center' style = 'color:white'>Room not avaiable</h4>
+                    {% endif %}
 				</div>
 			</form>
 		</div>
