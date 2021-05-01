@@ -133,17 +133,14 @@ def Advertise(request):
                 address=request.POST['address'], 
                 cover_image=request.FILES['cover_image'],
                 image_1=request.FILES['image_1'],
-                image_2=request.FILES['image_2'],
-                image_3=request.FILES['image_3'],
-                image_4=request.FILES['image_4'],
-                image_5=request.FILES['image_5'],
-                image_6=request.FILES['image_6'],
-                image_7=request.FILES['image_7'],
-                image_8=request.FILES['image_8'],
-                image_9=request.FILES['image_9'],
-                image_10=request.FILES['image_10']
                 )
 
+            for i in range(2, 11):
+                tmp = f'image_{i}'
+                try:
+                    instance.tmp = request.FILES[tmp]
+                except:
+                    pass
             instance.save()
             
             return HttpResponse('Advertisement Submitted')
