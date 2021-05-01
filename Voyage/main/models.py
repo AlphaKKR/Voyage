@@ -29,7 +29,12 @@ class Room(models.Model):
 
     def __str__(self):
         return (str(self.room_id))
+
+
 class Booking(models.Model):
-    room_id            = models.ForeignKey(Room, on_delete=models.CASCADE, null=True)
+    room_id         = models.ForeignKey(Room, on_delete=models.CASCADE, null=True)
     start           = models.DateField()
     end             = models.DateField() 
+
+    def __str__(self):
+        return (str(self.room_id))

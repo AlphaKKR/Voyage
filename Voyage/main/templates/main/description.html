@@ -23,24 +23,39 @@
 	
 <!-- Header Section -->
 <header>
-	<div class="container-fluid">
-		<nav class="navbar navbar-expand-lg navbar-light">
-			<div class="container-fluid">
-				<a class="navbar-brand" href="/home"><img src="/static/imgs/logo.png"></a>
-				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-					<span class="navbar-toggler-icon"></span>
-				</button>
-				<div class="collapse navbar-collapse" id="navbarSupportedContent">
-					<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-						<li class="nav-item"><a class="nav-link active" aria-current="page" href="/home">Home</a></li>
-						<li class="nav-item"><a class="nav-link" href="rooms">Rooms List</a></li>
-						<li class="nav-item"><a class="nav-link" href="login">Login/Register</a></li>
-					</ul>
-				</div>
-			</div>
-		</nav>
-	</div>
-</header>
+        <div class="container-fluid">
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="/home"><img src="/static/imgs/logo.png"></a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                            <li class="nav-item"><a class="nav-link active" aria-current="page" href="/home">Home</a>
+                            </li>
+                            <li class="nav-item"><a class="nav-link" href="rooms">Rooms List</a></li>
+                            {% if user.is_authenticated %}
+                            {% load i18n %}
+                            <form method="post" action="{% url 'logout' %}">
+                            {% csrf_token %}
+                            {% if redirect_field_value %}
+                            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                            {% endif %}
+                            <li class="nav-item"><a class="nav-link" href="logout">{{user.username}}</a></li>
+                            </form>
+                            {% else %}
+                            <li class="nav-item"><a class="nav-link" href="login">Login/Register</a></li>
+                            {% endif %}
+
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
 <!-- Rooms Detail Section -->
 
 <section id="rooms">
@@ -114,8 +129,9 @@
 					<p class="mb-2">{{object.room_desc}}</p>
 					<p class="mb-2">{{object.address}}</p>
 				</div>
-				<form id="bookingForm" action='/home/book?id={{object.room_id}}' method='GET'>
+				<form id="bookingForm" action='book' method='GET'>
 					<div class="box">
+						<input type="button" name="id" value="{{object.room_id}}"> 
 						<h3>Book Now</h3>
 						<div class="mb-4">
 							<input type="date" name="arrive" class="form-control">
@@ -135,7 +151,7 @@
                             </select>
 						</div>
 						<div class="">
-							<a href="/home/book?id={{object.room_id}}" style="width: 100%" class="btn btn-details-lg">Book Now</a>
+							<input type='submit' value='Book Now' style="width: 100%" class="btn btn-details-lg">
 						</div>
 					</div>
 				</form>

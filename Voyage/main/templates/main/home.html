@@ -39,7 +39,19 @@
                             <li class="nav-item"><a class="nav-link active" aria-current="page" href="/home">Home</a>
                             </li>
                             <li class="nav-item"><a class="nav-link" href="rooms">Rooms List</a></li>
+                            {% if user.is_authenticated %}
+                            {% load i18n %}
+                            <form method="post" action="{% url 'logout' %}">
+                            {% csrf_token %}
+                            {% if redirect_field_value %}
+                            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                            {% endif %}
+                            <li class="nav-item"><a class="nav-link" href="logout">{{user.username}}</a></li>
+                            </form>
+                            {% else %}
                             <li class="nav-item"><a class="nav-link" href="login">Login/Register</a></li>
+                            {% endif %}
+
                         </ul>
                     </div>
                 </div>
@@ -68,7 +80,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <form action="/home/filtered" method="post" class="searchForm">
+                    <form action="/home/rooms" method="post" class="searchForm">
+                    {% csrf_token %}
                         <div class="form-container fix">
                             <div class="row">
                                 <div class="col-md-3">
@@ -89,7 +102,7 @@
                                     </select>
                                 </div>
                                 <div class="col-md-3">
-                                    <a href="/home/filtered" style="width: 100%" class="btn btn-primary">Book Now</a>
+                                    <input type="submit" value='Book Now' style="width: 100%" class="btn btn-primary">
                                 </div>
                             </div>
                         </div>
