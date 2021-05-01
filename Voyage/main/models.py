@@ -28,6 +28,8 @@ class Room(models.Model):
     image_9         = models.ImageField(upload_to=get_image_path_img, blank=True, null=True)
     image_10        = models.ImageField(upload_to=get_image_path_img, blank=True, null=True)
 
+    verified        = models.BooleanField(default=False)
+
     def __str__(self):
         return (str(self.room_id))
 
