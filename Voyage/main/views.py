@@ -5,6 +5,9 @@ from django.contrib.auth import login, logout, authenticate
 from django.http import HttpResponse
 from .models import Room,Booking
 from datetime import datetime
+from Voyage.settings import EMAIL_HOST_USER
+from django.core.mail import send_mail
+
 
 def Description(request):
     if request.method == 'GET':
@@ -102,6 +105,16 @@ def Payment(request):
         adults = request.GET.get('adults')
         print(40*"#", id,adults)
         Booking.objects.create(user = request.user , start = arrive, end = departure, room_id = id , adults = adults)
+
+        subject = 'Voyage Booking Confirmation'
+        message = '%s your booking from the dates %s to %s for %d Adults has been confirmed'.format(user.username, arrive, departure, adults)
+
+        send_mail(subject, 
+                  message, 
+                  EMAIL_HOST_USER, 
+                  [request.user.email], 
+                  fail_silently = False)    
+    
     return redirect('/')
 
 def Logout(request):
