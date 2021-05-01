@@ -107,7 +107,7 @@ def Payment(request):
         Booking.objects.create(user = request.user , start = arrive, end = departure, room_id = id , adults = adults)
 
         subject = 'Voyage Booking Confirmation'
-        message = '%s your booking from the dates %s to %s for %d Adults has been confirmed'.format(user.username, arrive, departure, adults)
+        message = f'{request.user.username} your booking from the dates {arrive} to {departure} for {adults} Adults has been confirmed'
 
         send_mail(subject, 
                   message, 
