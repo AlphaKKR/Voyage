@@ -44,46 +44,42 @@
             </nav>
         </div>
     </header>
-    <!-- Rooms Listing Section -->
-    <section id="rooms">
-        <div class="container">
-            <h2>Voyage Rooms Gallery</h2>
-            <div class="divider"></div>
+    <!-- Payment Section -->
+<section id="cont-form" style="background-image: url({{object.image_1.url}});">
+	<div class="container">
+		<div id="loginSignup">
+			<form>
+				<div class="pay-box">
+					<div class="row">
+						<div class="col-md-12 col-lg-6">
+							<img src={{object.cover_image.url}} alt="" class="img-fluid">
+						</div>
+						<div class="col-md-12 col-lg-6">
+							<div class="pay-detail">
+								<h2>Book Now</h2>
+								<h5 class="card-title">₹ {{object.price}}</h5>
+		    					<p class="card-text mb-1">{{object.details}}</p>
+		    					<p class="mb-1">{{object.room_desc}}</p>
+		    					<p class="small">{{object.address}}</p>
+		    					<a href="index.php" class="btn btn-details">Confirm and Pay</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</section>
 
+<!-- Payment Section End -->
+<!-- Footer Section -->
+<footer>
+    <div class="container">
+        <p>© 2021 Voyage Rooms & Apartment. All Rights Reserved.</p>
+    </div>
+</footer>
 
-            <div class='row'>
-                {% for i in objects %}
-                <div class="col-md-4">
-                    <div class="card">
-                        <div class='zoom-img'>
-                            <img src={{i.cover_image.url}}>
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">₹ {{i.price}}</h5>
-                            <p class="card-text mb-1">{{i.details}}</p>
-                            <p class="mb-1">{{i.room_desc}}</p>
-                            <p class="small">{{i.address}}</p>
-                            <a href="/home/description?id={{i.room_id}}" class="btn btn-details">View Details</a>
-                        </div>
-                    </div>
-                </div>
-                {% if forloop.counter|divisibleby:3 %}
-            </div>
-            <div class='row mt-3'>
-                {% endif %}
-                {% endfor %}
-            </div>
-        </div>
-        
-
-    <!-- Footer Section -->
-    <footer>
-        <div class="container">
-            <p>© 2021 Voyage Rooms & Apartment. All Rights Reserved.</p>
-        </div>
-    </footer>
-
-    <!-- Footer Section End -->
+<!-- Footer Section End -->
 
 <!-- Jquery Library -->
 <script src="/static/js/jquery-3.6.0.min.js"></script>
@@ -95,18 +91,18 @@
 <script src="/static/src/js/lightslider.js"></script> 
 <script>
 $(document).ready(function() {
-    $('#image-gallery').lightSlider({
-        gallery:true,
-        item:1,
-        thumbItem:9,
-        slideMargin: 0,
-        speed:800,
-        auto:true,
-        loop:true,
-        onSliderLoad: function() {
-            $('#image-gallery').removeClass('cS-hidden');
-        }  
-    });
+$('#image-gallery').lightSlider({
+    gallery:true,
+    item:1,
+    thumbItem:9,
+    slideMargin: 0,
+    speed:800,
+    auto:true,
+    loop:true,
+    onSliderLoad: function() {
+        $('#image-gallery').removeClass('cS-hidden');
+    }  
+});
 });
 </script>
 </body>
