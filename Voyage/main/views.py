@@ -3,7 +3,7 @@ from Accounts.models import UserAccount
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, authenticate
 from django.http import HttpResponse
-from .models import Room,Booking
+from .models import Room,Booking,Comment
 from datetime import datetime
 from Voyage.settings import EMAIL_HOST_USER
 from django.core.mail import send_mail
@@ -13,7 +13,8 @@ def Description(request):
     if request.method == 'GET':
         id = request.GET.get('id')
         room = Room.objects.get(room_id=id)
-        param = {'object' : room}
+        comments = Comment.objects.filter(room_id=id)
+        param = {'object' : room, 'object1' : comments}
     return render(request,'main/description.html',param)
 
 def Home(request):
@@ -83,7 +84,12 @@ def Room_List(request):
 
 @login_required(login_url='/login')
 
-
+def Comments(request):
+    if request.method == 'POST':
+        id = request.POST.get('id')
+        comment = request.POST.get('comment')
+        Comment.objects.create(room_id = id, comment = comment, user = request.user)
+        return redirect('/description?id='+id)
 
 def Book(request):
     if request.method == 'GET':

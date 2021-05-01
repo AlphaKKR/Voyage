@@ -43,3 +43,10 @@ class Booking(models.Model):
 
     def __str__(self):
         return (str(self.room_id))
+
+class Comment(models.Model):
+    user            = models.ForeignKey(UserAccount, on_delete=models.CASCADE, null=True)
+    room_id         = models.IntegerField( null=True)
+    created_at      = models.DateTimeField(auto_now_add=True)
+    comment       = models.TextField(max_length=1000, default='', null=False)
+    created_at      = models.DateTimeField(auto_now_add=True)
