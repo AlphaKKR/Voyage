@@ -221,9 +221,9 @@ def VerifyRoom(request):
                   [user.email], 
                   fail_silently = False)
 
-        return redirect('/landlord')
+        return redirect('/adminpage')
     else:
         room = Room.objects.get(room_id = int(request.GET.get('id')))
         room.verified = True
         room.save()
-        return redirect('/landlord')
+        return redirect('/adminpage')
